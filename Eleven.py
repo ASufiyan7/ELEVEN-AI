@@ -15,10 +15,12 @@ engine.setProperty('voice', voices[1].id)
 
 engine.setProperty('rate', 150)
 
+#Speak function
 def speak(audio):
     engine.say(audio)
     engine.runAndWait()
 
+#Greet function
 def wishMe():
     hour = int(datetime.datetime.now().hour)
     if hour >= 0 and hour < 12:
@@ -30,6 +32,7 @@ def wishMe():
 
     speak("I’m ELEVEN, the Enhanced Learning Entity. Let's get started.")
 
+#Take command from user
 def takeCommand():
     r = sr.Recognizer()
     with sr.Microphone() as source:
@@ -57,6 +60,7 @@ def takeCommand():
     
     return query
 
+#Weather function
 def get_weather():
     city = "Surat" 
     api_key = "0ed358efaf2839cef0c242d6ab41325b" 
@@ -79,12 +83,13 @@ def get_weather():
     else:
         speak("City not found.")
 
+#Youtube search
 def search_youtube(query):
     search_url = f"https://www.youtube.com/results?search_query={query}"
     webbrowser.open(search_url)
     speak(f"Here are the search results for {query} on YouTube.")
 
-
+#Music 
 def play_music(song_name):
     song_name = song_name.lower()
     if song_name in Music:
@@ -106,6 +111,7 @@ if __name__ == "__main__":
             print(results)
             speak(results)
 
+        #Opening websites
         elif 'open youtube' in query:
             webbrowser.open("https://youtube.com")
 
@@ -117,6 +123,10 @@ if __name__ == "__main__":
 
         elif 'open stackoverflow' in query:
             webbrowser.open("https://stackoverflow.com")  
+
+         elif 'open code' in query:
+            codePath = "C:\\Users\\sufiyan ansari\\AppData\\Local\\Programs\\Microsoft VS Code"
+            os.startfile(codePath)
 
         
         if 'weather' in query:
@@ -140,11 +150,8 @@ if __name__ == "__main__":
         elif 'time' in query:
             strTime = datetime.datetime.now().strftime("%H:%M:%S")    
             speak(f"The time is {strTime}")
-
-        elif 'open code' in query:
-            codePath = "C:\\Users\\sufiyan ansari\\AppData\\Local\\Programs\\Microsoft VS Code"
-            os.startfile(codePath)
-
+            
+        #News
         elif 'news' in query:
             try:
                 r = requests.get("https://newsapi.org/v2/top-headlines?country=in&apiKey=267f5ef7b2d849cfbe77d55ee93ad659")
